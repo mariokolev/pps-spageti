@@ -1,0 +1,88 @@
+﻿@model IEnumerable<furniture.Models.Client>
+
+<h2>@ViewData["title"]</h2>
+<hr />
+
+
+@using (Html.BeginForm("Index", "Item", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    if (@ViewData["is_order"] != null)
+    {
+        <button type="submit" class="btn btn-primary">Напред</button>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Добави", "Create")
+        </p>
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @if (@ViewData["is_order"] !=  null)
+                {
+                    <span>Изберете клиент</span>
+                }
+                else
+                {
+                    <span>Редакция</span>
+                }
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @if (@ViewData["is_order"] != null)
+                    {
+                        <input type="radio" class="btn-check" name="client_id" value="@Html.DisplayFor(modelItem => item.Id)" required />
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Редактирай", "Edit", new { id = item.Id })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

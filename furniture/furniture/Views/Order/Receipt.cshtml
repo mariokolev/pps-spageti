@@ -1,0 +1,104 @@
+﻿@model furniture.Models.Order
+
+<table class="table" style="margin-top:50px">
+    <tr>
+        <th>
+            Код на артикул
+        </th>
+        <th>
+            Име на артикул
+        </th>
+        <th>
+            Продадено количество
+        </th>
+        <th>
+            Цена за бр.
+        </th>
+        <th>
+            Цена
+        </th>
+    </tr>
+
+@foreach (var item in Model.OrderDetails) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Item.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Item.ItemName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.QuantityOrdered) бр.
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Item.Price) лв.
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalPrice) лв.
+    </td>
+</tr>
+}
+</table>
+
+<table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Id)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.TotalPrice) лв.
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.FirstName)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Client.FirstName)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.SecondName)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Client.SecondName)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.DeliveryAddress)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Client.DeliveryAddress)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.PhoneNumber)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Client.PhoneNumber)
+        </td>
+    </tr>
+</table>
+<p>
+    @Html.ActionLink("Към Продажби", "Index")
+</p>

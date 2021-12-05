@@ -1,0 +1,63 @@
+﻿@using (Html.BeginForm("GenerateReport", "Report", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container text-center mt-5">
+        <div class="row">
+            <h1 class="text-left">Справки</h1>
+        </div>
+        <div class="row">
+            <div id='test'>
+                <select class="form-control" id="reports" name="report_id">
+                    <option value="1">Най-продаван артикул</option>
+                    <option value="2">Клиент с най-много покупки</option>
+                    <option value="3">Най-продаван продукт в град.</option>
+                    <option value="4">Продажби преди дата</option>
+                    <option value="5">Продажби за клиент</option>
+                </select>
+            </div>
+            <div class="ml-2" id="txt-param" style="display:none;">
+                <input type="text" class="form-control" placeholder="Име на град" name="city" />
+            </div>
+            <div class="ml-2" id="date-param" style="display:none;">
+                <input type="text" class="form-control " name="item_name" placeholder="Име на артикул" />
+                <input type="date" class="form-control ml-2" name="date" placeholder="Дата" />
+            </div>
+            <div class="ml-2" id="phone-param" style="display:none;">
+                <input type="number" class="form-control" placeholder="Телефон" name="phone_number" />
+            </div>
+            <div class="ml-2">
+                <button class="btn btn-primary" type="submit">Резултат</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    window.onload = () => {
+        // input fields will be displayed on select
+        const inputText = document.querySelector('#txt-param');
+        const inputDate = document.querySelector('#date-param');
+        const inputPhone = document.querySelector('#phone-param');
+        const select = document.querySelector('#reports');
+
+        select.addEventListener('click', (e) => {
+
+            const options = { 3: inputText, 4: inputDate, 5: inputPhone };
+            const selectedOption = e.target;
+
+            for (let option in options) {
+
+                if (options.hasOwnProperty(selectedOption.value)) {
+                    options[selectedOption.value].style.display = "block";
+                }
+
+                // Disable not choosen options which are enabled
+                if (
+                    option != parseInt(selectedOption.value)
+                    && options[option].style.display === 'block'
+                ) {
+                    options[option].style.display = "none";
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<furniture.Models.Item>
+
+<h2>@ViewData["title"]</h2>
+<hr />
+
+@using (Html.BeginForm("Create", "Order", FormMethod.Post))
+{
+    <input type="hidden" name="client_id" value=@ViewData["client_id"] />
+
+    @Html.AntiForgeryToken()
+
+    if (@ViewData["client_id"] != null)
+    {
+        <button type="submit" class="btn btn-primary ml-auto">Напред</button>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Добави", "Create")
+        </p>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfManufacture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            @if (@ViewData["client_id"] != null)
+            {
+                <th>
+                    Изберете артикул
+                </th>
+                <th>
+                    Количество
+                </th>
+            }
+            else
+            {
+                <th>
+                    Редакция
+                </th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price) лв.
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfManufacture)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity) бр.
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                @if (@ViewData["client_id"] != null)
+                {
+                    <td>
+                        <div class="form-group">
+                            <input type="checkbox" class="checkbox" name="item_id[]" value="@Html.DisplayFor(modelItem => item.Id)">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="quantity[]" min="1" max="@Html.DisplayFor(modelItem => item.Quantity)">
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Редактирай", "Edit", new { id = item.Id })
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<furniture.Models.OrderDetails>
+
+<h2>@ViewData["title"]</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuantityOrdered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Item.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Item.ItemName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Item.Price) лв.
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.QuantityOrdered)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalPrice) лв.
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedAt)
+    </td>
+</tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Назад", "Index")
+</p>

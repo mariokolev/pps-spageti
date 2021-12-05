@@ -1,0 +1,46 @@
+﻿@model IEnumerable<furniture.Models.Order>
+
+<h2>@ViewData["title"]</h2>
+<hr />
+
+<p>
+    @Html.ActionLink("Добави", "Index", "Client", new { is_order = true }, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice) лв.
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.ActionLink("Детайли", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
